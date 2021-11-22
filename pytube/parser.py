@@ -155,12 +155,9 @@ def throttling_array_split(js_array):
         if curr_substring.startswith('function'):
             # Handle functions separately. These can contain commas
             match = func_regex.search(curr_substring)
+            if not match:
+                        break        
             match_start, match_end = match.span()
-
-            function_text = find_object_from_startpoint(curr_substring, match.span()[1])
-            full_function_def = curr_substring[:match_end + len(function_text)]
-            results.append(full_function_def)
-            curr_substring = curr_substring[len(full_function_def) + 1:]
         else:
             match = comma_regex.search(curr_substring)
 
